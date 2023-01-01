@@ -7,9 +7,9 @@ This branch has been modifed for use with the [Pi Plot shiled](https://github.co
 
 ### Changes made in this version
 
-- Add folowing plotters : HP7440a, HP7550, Roland DXY 1xxx, Roland Sketchmate, Houston Instrument DMP-161, Calcomp Designmate, and Calcomp Artisan. 
+- Add folowing plotters : HP7440a, HP7550, Roland DXY 1xxx, Roland Sketchmate, Houston Instrument DMP-161, Calcomp Designmate, and Calcomp Artisan.
 - Support for HP-IB through Plug n Plot.
-- Plot optimization options through Vpype. 
+- Plot optimization options through Vpype.
 - Add Buffer space info graph when plotting (Not availible when using XON/XOFF nor HP-IB)
 - Auto baud rate detection.
 - Simple resizing of input SVG when converting to HPGL
@@ -29,11 +29,11 @@ Python webservice to simplify working with pen plotters:
 
 ## Installation
 
-This quick and easy easy install script is intended to be used with Raspibain OS, preferably the 64 bit Lite version. 
+This quick and easy easy install script is intended to be used with Raspibain OS, preferably the 64 bit Lite version.
 From the home directory, run:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/idtstudios/penplotter-webserver/PiPlot/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/abillits/penplotter-webserver/PiPlot/install.sh | bash
 ```
 
 This will install the Pen Plotter Web Server and will reboot the Raspberry Pi once installation is completed.
