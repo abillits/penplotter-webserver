@@ -13,7 +13,7 @@ isExist = os.path.exists(save_directory_parent)
 if not isExist:
   os.makedirs(save_directory_parent)
 
-save_directory_child = os.path.join(save_directory_parent,datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '/')
+save_directory_child = os.path.join(save_directory_parent,os.environ["PLOTDESIGN"] + "_" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '/')
 
 isExist = os.path.exists(save_directory_child)
 if not isExist:
