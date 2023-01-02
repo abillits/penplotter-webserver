@@ -238,6 +238,10 @@ def start_plot():
         tasmota = request.form.get('tasmota')
         timelapse = request.form.get('timelapse')
 
+        design = request.form.get('file')
+        design = design.replace(".hpgl", "")
+        design = design.replace("_plotted", "")
+        os.environ["PLOTDESIGN"] = design
         plot(file, port, baudrate, flowControl, tasmota, timelapse)
 
         return 'Plot started'
