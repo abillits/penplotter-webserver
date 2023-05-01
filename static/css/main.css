@@ -165,8 +165,8 @@ body {
 #content {
   margin-top: 52px;
   padding: 30px 0 0 0;
-  background-color: #f7f7f7;
-  background-image: url("../img/bg.jpg");
+  background-color: #555555;
+  /* background-image: url("../img/bg.jpg"); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -340,13 +340,13 @@ footer {
 }
 
 #chart {
-  max-width: 130%; 
+  max-width: 130%;
   display: block;
-  height: 120px; 
+  height: 120px;
   transition: .5s ease;
   backface-visibility: visible;
   transform: translate(-6.6%, 0%);
-  
+
 }
 #logo {
   opacity: 0.2;
@@ -358,7 +358,7 @@ footer {
 }
 
 #chartContents {
-  height: 150px; 
+  height: 150px;
   transition: all 0.5s;
   opacity: 1;
   overflow: hidden;
@@ -371,11 +371,11 @@ footer {
 }
 
 #actionsContents {
-  height: 100px; 
+  height: 100px;
   transition: all 0.5s;
   opacity: 1;
   overflow: hidden;
-  padding: 0px 0px 0px 0px;  
+  padding: 0px 0px 0px 0px;
 }
 
 #actionsContents.hidden {
@@ -383,4 +383,3 @@ footer {
   opacity: 0;
   padding: 0px ;
 }
-

@@ -165,6 +165,9 @@ def index():
         'telegram_chatid': config['telegram']['telegram_chatid'],
         'tasmota_enable': config['tasmota']['tasmota_enable'],
         'tasmota_ip': config['tasmota']['tasmota_ip'],
+        'timelapse_enable': config['timelapse']['timelapse_enable'],
+        'timelapse_selected': config['timelapse']['timelapse_selected'],
+        'timelapse_preview': config['timelapse']['timelapse_preview'],
         'plotter_name': config['plotter']['name'],
         'plotter_port': config['plotter']['port'],
         'plotter_device': config['plotter']['device'],
@@ -189,6 +192,10 @@ def upload_files():
 @app.route('/uploads/<filename>')
 def upload(filename):
     return send_from_directory(app.config['UPLOAD_PATH'], filename)
+
+@app.route('/timelapse/<filename>')
+def timelapse(filename):
+    return send_from_directory('timelapse', filename)
 
 # Fetch Files
 @app.route('/update_files', methods=['GET'])
@@ -241,7 +248,8 @@ def start_plot():
         design = request.form.get('file')
         design = design.replace(".hpgl", "")
         design = design.replace("_plotted", "")
-        os.environ["PLOTDESIGN"] = design
+        with open('/home/pi/webplotter/design.txt', 'w') as f:
+            f.write(design)
         plot(file, port, baudrate, flowControl, tasmota, timelapse)
 
         return 'Plot started'
@@ -309,6 +317,16 @@ def action_tasmota():
 
         return 'action_tasmota started'
 
+# Toggle tasmota switch
+@app.route('/action_update_preview', methods=['GET', 'POST'])
+def update_preview():
+    if request.method == "POST":
+        subprocess.run('libcamera-jpeg -o "/home/pi/webplotter/timelapse/preview.jpg" -n -t 1 --shutter 8000 --exposure sport --awb tungsten', shell=True)
+        #command = 'libcamera-jpeg -o ' + save_directory_child + '{}.jpg -n -t 1 --shutter 8000 --exposure sport --awb tungsten'
+        #subprocess.Popen(command.format("{:08d}".format(count)), shell=True) #run in background
+
+        return 'update_preview started'
+
 # Update configfile values
 @app.route('/save_configfile', methods=['GET', 'POST'])
 def save_configfile():
@@ -321,6 +339,12 @@ def save_configfile():
             config['tasmota']['tasmota_enable'] = request.form.get('tasmota_enable')
         if "tasmota_ip" in request.form:
             config['tasmota']['tasmota_ip'] = request.form.get('tasmota_ip')
+        if "timelapse_enable" in request.form:
+            config['timelapse']['timelapse_enable'] = request.form.get('timelapse_enable')
+        if "timelapse_selected" in request.form:
+            config['timelapse']['timelapse_selected'] = request.form.get('timelapse_selected')
+        if "timelapse_preview" in request.form:
+            config['timelapse']['timelapse_preview'] = request.form.get('timelapse_preview')
         if "plotter_name" in request.form:
             config['plotter']['name'] = request.form.get('plotter_name')
         if "plotter_port" in request.form:
@@ -343,6 +367,9 @@ def save_configfile():
             'telegram_token': config['telegram']['telegram_token'],
             'telegram_chatid': config['telegram']['telegram_chatid'],
             'tasmota_enable': config['tasmota']['tasmota_enable'],
+            'timelapse_enable': config['timelapse']['timelapse_enable'],
+            'timelapse_selected': config['timelapse']['timelapse_selected'],
+            'timelapse_preview': config['timelapse']['timelapse_preview'],
             'tasmota_ip': config['tasmota']['tasmota_ip'],
             'plotter_name': config['plotter']['name'],
             'plotter_port': config['plotter']['port'],

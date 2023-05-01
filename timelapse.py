@@ -13,13 +13,17 @@ isExist = os.path.exists(save_directory_parent)
 if not isExist:
   os.makedirs(save_directory_parent)
 
-save_directory_child = os.path.join(save_directory_parent,os.environ["PLOTDESIGN"] + "_" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '/')
+with open('/home/pi/webplotter/design.txt') as f:
+    design = f.readlines()
+
+#save_directory_child = os.path.join(save_directory_parent,os.environ["PLOTDESIGN"] + "_" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '/')
+save_directory_child = os.path.join(save_directory_parent,design + "_" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + '/')
 
 isExist = os.path.exists(save_directory_child)
 if not isExist:
   os.makedirs(save_directory_child)
 
-command = 'libcamera-jpeg -o ' + save_directory_child + '{}.jpg -n -t 1 --shutter 8000 --exposure sport --awb tungsten'
+command = 'libcamera-jpeg -o ' + save_directory_child + '{}.jpg -n -t 1 --shutter 8000 --exposure sport --awb tungsten --width 1920 --height 1080'
 
 #files = glob.glob('/home/pi/webplotter/timelapse/*')
 #for f in files:

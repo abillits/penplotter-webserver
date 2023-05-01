@@ -59,8 +59,10 @@
           <li><a href="#" class="actionsButton"><span data-uk-icon="icon: cog"class="uk-margin-small-right"></span>ACTIONS</a></li>
         </ul> -->
         <ul class="uk-nav uk-nav-default uk-nav-parent-icon" data-uk-nav id ="actionsContents">
-          <li><a href="#" class="action-tasmota-toggle actionTasmota"><span data-uk-icon="icon: bolt"
+          <li id="tasmota-toggle"><a href="#" class="action-tasmota-toggle actionTasmota"><span data-uk-icon="icon: bolt"
                 class="uk-margin-small-right"></span>Toggle Tasmota</a></li>
+          <li id="update-preview"><a href="#" class="action-update-preview actionUpdatePreview"><span data-uk-icon="icon: camera"
+                class="uk-margin-small-right"></span>Update Preview</a></li>
           <li><a href="#" class="action-open-reboot" uk-toggle="target: #modal-reboot"><span
                 data-uk-icon="icon: refresh" class="uk-margin-small-right"></span>Reboot Pi</a></li>
           <li><a href="#" class="action-open-poweroff" uk-toggle="target: #modal-poweroff"><span
@@ -87,17 +89,24 @@
         </div>
       </div>
 
-      <div class="left-content-box uk-margin-top">
+      <div class="left-content-box uk-margin-top"  id="tasmota-checkbox">
         <h5>TASMOTA CONTROL</h5>
         <div class="uk-margin-small uk-grid-small uk-child-width-auto uk-grid">
           <label><input id="tasmota" class="uk-checkbox" type="checkbox" name="tasmota"> Shutdown when done</label>
         </div>
       </div>
 
-      <div class="left-content-box uk-margin-top">
+      <div class="left-content-box uk-margin-top"  id="timelapse-checkbox">
         <h5>TIMELAPSE</h5>
         <div class="uk-margin-small uk-grid-small uk-child-width-auto uk-grid">
-          <label><input id="tasmota" class="uk-checkbox" type="checkbox" name="timelapse"> Enable timelapse</label>
+          <label><input id="timelapse" class="uk-checkbox" type="checkbox" name="timelapse"> Enable timelapse</label>
+        </div>
+      </div>
+      <div class="left-content-box uk-margin-top"  id="timelapse-preview">
+        <h5>TIMELAPSE PREVIEW</h5>
+        <div class="uk-margin-small uk-grid-small uk-child-width-auto uk-grid">
+          <a href="{{url_for('timelapse', filename='preview.jpg')}}" target="_blank">
+          <img id="preview-img" src="{{url_for('timelapse', filename='preview.jpg')}}" />
         </div>
       </div>
     </div>
@@ -524,6 +533,36 @@
             </div>
 
             <div class="uk-width-1-2@s">
+              <label class="uk-form-label" for="timelapse_enable">Enable Timelapse</label>
+              <div class="uk-margin-small">
+                <select id="timelapse_enable" class="uk-select" name="timelapse_enable">
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="uk-width-1-2@s">
+              <label class="uk-form-label" for="timelapse_preview">Enable Timelapse Preview</label>
+              <div class="uk-margin-small">
+                <select id="timelapse_preview" class="uk-select" name="timelapse_preview">
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="uk-width-1-2@s">
+              <label class="uk-form-label" for="timelapse_selected">Timelapse Auto Selected</label>
+              <div class="uk-margin-small">
+                <select id="timelapse_selected" class="uk-select" name="timelapse_selected">
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="uk-width-1-2@s">
               <label class="uk-form-label" for="plotter_name">Plotter Name</label>
               <div class="uk-margin-small">
                 <input id="plotter_name" class="uk-input" name="plotter_name" type="input">
@@ -814,6 +853,12 @@
       jQuery(document).on('click', '.actionTasmota', function (e) {
         e.preventDefault();
         actionTasmota();
+      });
+
+      // Update Timelapse Preview
+      jQuery(document).on('click', '.actionUpdatePreview', function (e) {
+        e.preventDefault();
+        actionUpdatePreview();
       });
 
       // Open Config.ini file editor

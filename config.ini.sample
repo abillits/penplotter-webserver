@@ -6,6 +6,11 @@ telegram_chatid = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 tasmota_enable = false
 tasmota_ip = 192.168.1.107
 
+[timelapse]
+timelapse_enable = false
+timelapse_selected = false
+timelapse_preview = false
+
 [plotter]
 name = HP 7475A
 port = /dev/ttyAMA0
