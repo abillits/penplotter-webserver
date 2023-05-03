@@ -321,7 +321,7 @@ def action_tasmota():
 @app.route('/action_update_preview', methods=['GET', 'POST'])
 def update_preview():
     if request.method == "POST":
-        subprocess.run('libcamera-jpeg -o "/home/pi/webplotter/timelapse/preview.jpg" -n -t 1 --shutter 8000 --exposure sport --awb tungsten', shell=True)
+        subprocess.run('libcamera-jpeg -o "/home/pi/webplotter/timelapse/preview.jpg" -n -t 1 --shutter 8000 --exposure sport --awb tungsten --width 1920 --height 1080', shell=True)
         #command = 'libcamera-jpeg -o ' + save_directory_child + '{}.jpg -n -t 1 --shutter 8000 --exposure sport --awb tungsten'
         #subprocess.Popen(command.format("{:08d}".format(count)), shell=True) #run in background
 
