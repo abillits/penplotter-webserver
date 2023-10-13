@@ -34,10 +34,10 @@ if [ ! -d "$dir" ] ; then
     git clone -q -b PiPlot https://github.com/abillits/penplotter-webserver.git "$dir" > /dev/null
     echo ""
     echo "Installing pip packages"
-    (python3 -m pip install -r $dir/requirements.txt -qq) & spinner
+    (python3 -m pip install -r $dir/requirements.txt -qq  --break-system-packages) & spinner
     echo ""
     echo "Installing pipx"
-    (python3 -m pip install --user --no-warn-script-location pipx -qq) & spinner
+    (python3 -m pip install --user --no-warn-script-location pipx -qq --break-system-packages) & spinner
     python3 -m pipx ensurepath > /dev/null
     export PATH="$PATH:/home/pi/.local/bin" > /dev/null
     echo ""
