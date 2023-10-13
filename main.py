@@ -327,7 +327,8 @@ def update_preview():
         #subprocess.run('libcamera-jpeg -o "/home/pi/webplotter/timelapse/preview.jpg" -n -t 1 --shutter 8000 --exposure sport --awb tungsten --width 3840 --height 2160', shell=True)
         #subprocess.run('libcamera-jpeg -o "/home/pi/webplotter/timelapse/preview.jpg" -n -t 1 --shutter 8000 --exposure sport --awb tungsten --width 1920 --height 1080', shell=True)
         #subprocess.run('libcamera-jpeg -o "/home/pi/webplotter/timelapse/preview.jpg" -n -t 1 --shutter 8000 --exposure sport --awb tungsten --width 2200 --height 1400', shell=True)
-        subprocess.run('libcamera-jpeg -o "/home/pi/webplotter/timelapse/preview.jpg" -n -t 1 --shutter 8000 --exposure sport --awb tungsten', shell=True)
+        #subprocess.run('libcamera-jpeg -o "/home/pi/webplotter/timelapse/preview.jpg" -n -t 1 --shutter 8000 --exposure sport --awb tungsten', shell=True)
+        subprocess.run('ffmpeg -y -f v4l2 -video_size 1920x1200 -i /dev/video0 -frames 1 /home/pi/webplotter/timelapse/preview.jpg', shell=True)
         #command = 'libcamera-jpeg -o ' + save_directory_child + '{}.jpg -n -t 1 --shutter 8000 --exposure sport --awb tungsten'
         #subprocess.Popen(command.format("{:08d}".format(count)), shell=True) #run in background
 
