@@ -3,6 +3,7 @@ import glob
 import subprocess
 import threading
 import time
+import shutil
 from datetime import datetime
 
 count = 0
@@ -22,8 +23,11 @@ isExist = os.path.exists(save_directory_child)
 if not isExist:
   os.makedirs(save_directory_child)
 
-command = 'libcamera-jpeg -o ' + save_directory_child + '{}.jpg -n -t 1 --shutter 8000 --exposure sport --awb tungsten --width 1920 --height 1080'
-#command = 'libcamera-jpeg -o ' + save_directory_child + '{}.jpg -n -t 1 --shutter 8000 --exposure sport --awb tungsten --width 3840 --height 2160'
+shutil.copyfile('/home/pi/webplotter/design.txt', save_directory_child + 'design.txt')
+
+#command = 'libcamera-jpeg -o ' + save_directory_child + '{}.jpg -n -t 1 --shutter 8000 --exposure sport --awb tungsten --width 1920 --height 1080'
+#command = 'libcamera-still -e png -o ' + save_directory_child + '{}.png -n -t 1 --shutter 4000 --exposure sport --awb tungsten'
+command = 'v4l2-ctl --device /dev/video0 --set-fmt-video=width=2560,height=1440,pixelformat=MJPG --stream-mmap --stream-to=' + save_directory_child + '{}.jpg --stream-count=1'
 
 #files = glob.glob('/home/pi/webplotter/timelapse/*')
 #for f in files:
@@ -32,4 +36,4 @@ while True:
     count+=1
     subprocess.run(command.format("{:08d}".format(count)), shell=True) #run with blocking
     #subprocess.Popen(command.format("{:08d}".format(count)), shell=True) #run in background
-    time.sleep(2)
+    time.sleep(1)
