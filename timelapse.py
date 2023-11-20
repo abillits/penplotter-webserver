@@ -36,4 +36,4 @@ while True:
     count+=1
     subprocess.run(command.format("{:08d}".format(count)), shell=True) #run with blocking
     #subprocess.Popen(command.format("{:08d}".format(count)), shell=True) #run in background
-    time.sleep(1)
+    time.sleep(2)
